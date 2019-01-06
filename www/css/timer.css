@@ -1,0 +1,55 @@
+body {
+    font-family: arial;
+}
+div#start_time_div {
+    border-bottom: solid 1px;
+}
+
+div#start_time {
+    display: inline;
+}
+
+div#time_display {
+}
+div#time_display .date {
+    display: none;
+}
+div#time_display .time {
+    display: block;
+    font-size: 300%;
+    text-align: center;
+}
+div#time_display .milliseconds {
+    font-size: 50%;
+}
+
+div#time_button input {
+    width: 100%;
+    font-size: 200%;
+}
+
+div.button_click .date {
+    display: none;
+}
+div.button_click .milliseconds {
+    font-size: 80%;
+}
+
+div.button_click.ignore_yes {
+    text-decoration: line-through;
+}
+
+span.event_id {
+    background-color: blue;
+    color: white;
+    padding: 0 5px 0 3px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+}
+
+span.rider_id {
+    font-weight: bold;
+}
+span.rider_time {
+    font-weight: bold;
+}
