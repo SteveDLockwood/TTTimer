@@ -201,3 +201,49 @@ function allocate_event(eid, rid) {
     }
     refresh_button_click(eid)
 }
+
+// setup
+function setup() {
+    $("#setup").show()
+    sth = new Date(start_time).getHours()
+    stm = new Date(start_time).getMinutes()
+    sts = new Date(start_time).getSeconds()
+    var wp_options = {
+    now: `${sth}:${stm}`, //hh:mm 24 hour format only, defaults to current time
+        twentyFour: true,  //Display 24 hour format, defaults to false
+        //upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
+        //downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
+        close: 'wickedpicker__close', //The close class selector to use, for custom CSS
+        hoverState: 'hover-state', //The hover state class to use, for custom CSS
+        title: 'Set start time', //The Wickedpicker's title,
+        showSeconds: true, //Whether or not to show seconds,
+        timeSeparator: ':', // The string to put in between hours and minutes (and seconds)
+        secondsInterval: 1, //Change interval for seconds, defaults to 1,
+        minutesInterval: 1, //Change interval for minutes, defaults to 1
+        beforeShow: null, //A function to be called before the Wickedpicker is shown
+        afterShow: null, //A function to be called after the Wickedpicker is closed/hidden
+        show: null, //A function to be called when the Wickedpicker is shown
+        clearable: false, //Make the picker's input clearable (has clickable "x")
+    };
+    $("#setup_start_time").wickedpicker(wp_options)
+}
+
+// set start time
+function set_start_time() {
+    t = $("#setup_start_time").wickedpicker("time")
+    h = parseInt(t.substring(0,2))
+    m = parseInt(t.substring(3,5))
+    s = parseInt(t.substring(6,8))
+    d = new Date()
+    d.setHours(h)
+    d.setMinutes(m)
+    d.setSeconds(s)
+    d.setMilliseconds(0)
+    start_time = d.getTime()
+    doc_load()
+}
+
+// finished setup
+function setup_close() {
+    $("#setup").hide()
+}

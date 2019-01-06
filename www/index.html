@@ -5,14 +5,23 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <title>Timer</title>
         <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/wickedpicker.min.js"></script>
         <script type="text/javascript" src="js/timer.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/timer.css" media="screen">
-        
+        <link rel="stylesheet" type="text/css" href="css/timer.css" />
+        <link rel="stylesheet" type="text/css" href="js/wickedpicker.min.css" />
     </head>
     <body onload="doc_load()">
         <div id="start_time_div">
+            <input type="button" value="SET UP" onclick="setup()" />
             Start:
             <div id="start_time"></div>
+        </div>
+        <div id="setup">
+            Start time: <input type="text" id="setup_start_time" />
+            <input type="button" value="SET" onclick="set_start_time()" />
+            <div id="setup_close">
+                <input type="button" value="CLOSE" onclick="setup_close()" />
+            </div>
         </div>
         <div id="time_display">
             ...loading

@@ -1,8 +1,27 @@
 body {
     font-family: arial;
 }
+
+div#setup {
+    display: none;
+    background-color: #FFFF99;
+    padding: 10px 0;
+}
+
+div#setup_close {
+    text-align: right;
+}
+
 div#start_time_div {
     border-bottom: solid 1px;
+}
+
+.wickedpicker__controls__control-up:before {
+    content: '+' !important;
+}
+
+.wickedpicker__controls__control-down:after {
+    content: '-' !important;
 }
 
 div#start_time {
