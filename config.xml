@@ -2,7 +2,7 @@
 <widget id="com.stevelockwood.timer" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>com.stevelockwood.timer</name>
     <description>
-        A blank PhoneGap app.
+        A simple timing application for time trials
     </description>
     <author email="steve@stevelockwood.net" href="http://stevelockwood.net">
         Steve Lockwood
