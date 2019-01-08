@@ -17,10 +17,23 @@
             <div id="start_time"></div>
         </div>
         <div id="setup">
-            Start time: <input type="text" id="setup_start_time" />
-            <input type="button" value="SET" onclick="set_start_time()" />
-            <div id="setup_close">
-                <input type="button" value="CLOSE" onclick="setup_close()" />
+            <h1>Set up</h1>
+            <div>
+                <h2>Re-set</h2>
+                <div>Warning: this will clear all times and riders and start afresh</div>
+                <input type="button" value="Re-set" onclick="reset()" />
+                <span id="reset_check">
+                    Are you sure?
+                    <input type="button" value="Yes" onclick="reset2()" />
+                </span>
+            </div>
+            <div>
+                <h2>Start time</h2>
+                <input type="text" id="setup_start_time" />
+                <input type="button" value="SET" onclick="set_start_time()" />
+                <div id="setup_close">
+                    <input type="button" value="CLOSE" onclick="setup_close()" />
+                </div>
             </div>
         </div>
         <div id="time_display">

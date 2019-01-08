@@ -1,4 +1,5 @@
-// reference some elements
+
+// reference some elements as globals
 var div_time // displays the current time
 var timer_main // timer object for current time display
 var button_clicks = [] // button click events
@@ -10,6 +11,28 @@ var start_time_offset = new Date(start_time).getTimezoneOffset() // need to make
 // parameters
 var p_timer_interval = 100
 
+// now load any saved globals
+if (localStorage.getItem("globals")) {
+    g = JSON.parse(localStorage.getItem("globals"))
+    button_clicks = g.button_clicks
+    riders = g.riders
+    start_time = g.start_time
+    num_riders = g.num_riders
+    start_time_offset = g.start_time_offset
+}
+
+// save globals
+function save_globals() {
+    g = {
+        "button_clicks": button_clicks,
+        "riders": riders,
+        "start_time": start_time,
+        "num_riders": num_riders,
+        "start_time_offset": start_time_offset
+    }
+    localStorage.setItem("globals", JSON.stringify(g))
+}
+
 // document load event
 function doc_load() {
     // reference some elements
@@ -17,10 +40,35 @@ function doc_load() {
     timer_main = window.setInterval(timer_main_event, p_timer_interval)
     // initialise the riders array
     for (i = 1; i <= num_riders; i++) {
-        riders[i] = new Rider(i)
+        // create a new object if needed
+        if (riders[i] == undefined) {
+            riders[i] = new Rider(i)
+        }
+        // convert anonymous object to Rider
+        if (typeof riders[i] == "object") {
+            x = riders[i]
+            riders[i] = new Rider(i)
+            fields = ["penalty", "ignore", "_start_time", "button_click_id"]
+            for (f in fields) {
+                riders[i][fields[f]] = x[fields[f]]
+            }
+        }
     }
     // display the start time
     $("#start_time").html(format_time(start_time))
+    // initialise the button_clicks array
+    $("div#button_clicks").text("")
+    for (i in button_clicks) {
+        if (typeof button_clicks[i] == "object") {
+            x = button_clicks[i]
+            button_clicks[i] = new ButtonClick(x.d)
+            fields = ["ignore", "_rider_id"]
+            for (f in fields) {
+                button_clicks[i][fields[f]] = x[fields[f]]
+            }
+        }
+        $("div#button_clicks").prepend(html_button_click(i))
+    }
 }
 
 // timer event
@@ -68,15 +116,22 @@ class ButtonClick {
 class Rider {
     constructor(n) {
         this.n = n
-        this.start_time = start_time + 60000 * n
+        this._start_time = null
         this.penalty = 0
         this.ignore = 0 // 1 = ignore, 2 = dns, 3 = dnf
-        this._button_click_id = null
+        this.button_click_id = null
     }
-    // get and set the event id
-    get button_click_id() {return this._button_click_id}
-    set button_click_id(id) {
-        this._button_click_id = id
+    // get the start time (default if not set)
+    get start_time() {
+        if (this._start_time == null) {
+            return start_time + 60000 * this.n
+        }
+        else {
+            return this._start_time
+        }
+    }
+    set start_time(d) {
+        this._start_time = d
     }
     // get the time
     get time() {
@@ -141,6 +196,7 @@ function time_button_click(e) {
     // add it to the display
     $("div#button_clicks").prepend(html_button_click(i))
     time_event_click(i)
+    save_globals()
 }
 
 // a time is clicked
@@ -185,6 +241,7 @@ function refresh_button_click(eid) {
 function ignore_event(eventid, v) {
     button_clicks[eventid].ignore = v
     refresh_button_click(eventid)
+    save_globals()
 }
 
 // allocate button click to an event
@@ -200,6 +257,7 @@ function allocate_event(eid, rid) {
         riders[rid].button_click_id = eid
     }
     refresh_button_click(eid)
+    save_globals()
 }
 
 // setup
@@ -209,7 +267,7 @@ function setup() {
     stm = new Date(start_time).getMinutes()
     sts = new Date(start_time).getSeconds()
     var wp_options = {
-    now: `${sth}:${stm}`, //hh:mm 24 hour format only, defaults to current time
+        now: `${sth}:${stm}`, //hh:mm 24 hour format only, defaults to current time
         twentyFour: true,  //Display 24 hour format, defaults to false
         //upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
         //downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
@@ -228,6 +286,22 @@ function setup() {
     $("#setup_start_time").wickedpicker(wp_options)
 }
 
+// reset
+function reset() {
+    $("#reset_check").show()
+}
+function reset2() {
+    button_clicks = [] // button click events
+    riders = [] // list of rider objects (element 0 unused, element id = rider number)
+    start_time = parseInt(new Date().getTime() / 3600000) * 3600000 // start time of event (in milliseconds)
+    num_riders = 120 // number of riders
+    start_time_offset = new Date(start_time).getTimezoneOffset() // need to make sure all times have the same offset
+    save_globals()
+    doc_load()
+    $("#reset_check").hide()
+}
+
+
 // set start time
 function set_start_time() {
     t = $("#setup_start_time").wickedpicker("time")
@@ -240,7 +314,9 @@ function set_start_time() {
     d.setSeconds(s)
     d.setMilliseconds(0)
     start_time = d.getTime()
+    save_globals()
     doc_load()
+    setup()
 }
 
 // finished setup
