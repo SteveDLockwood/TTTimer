@@ -37,7 +37,10 @@ h2 {
 
 div#setup {
     background-color: #FFFF99;
-    padding: 10px 0;
+    margin: 10px;
+    border: solid 1px blue;
+    border-radius: 15px;
+    padding: 10px;
 }
 
 #setup_close {

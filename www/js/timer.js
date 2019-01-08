@@ -288,6 +288,7 @@ function setup() {
         clearable: false, //Make the picker's input clearable (has clickable "x")
     };
     $("#setup_start_time").wickedpicker(wp_options)
+    $("#setup_num_riders").val(num_riders)
 }
 
 // reset
@@ -321,6 +322,13 @@ function set_start_time() {
     save_globals()
     doc_load()
     setup()
+}
+
+// set number of riders
+function set_num_riders() {
+    num_riders = parseInt($("#setup_num_riders").val())
+    save_globals()
+    doc_load()
 }
 
 // finished setup

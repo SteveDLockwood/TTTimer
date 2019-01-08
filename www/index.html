@@ -22,17 +22,24 @@
             </h1>
             <div>
                 <h2>Re-set</h2>
-                <div>Warning: this will clear all times and riders and start afresh</div>
-                <input type="button" value="Re-set" onclick="reset()" />
+                <div>Clear all times and riders</div>
+                <input type="button" value="CLEAR ALL" onclick="reset()" />
                 <span id="reset_check">
-                    Are you sure?
+                    All currently recorded times will be lost. Are you sure?
                     <input type="button" value="Yes" onclick="reset2()" />
                 </span>
             </div>
             <div>
                 <h2>Start time</h2>
+                <div>Click on the time and use the adjuster</div>
                 <input type="text" id="setup_start_time" />
-                <input type="button" value="SET" onclick="set_start_time()" />
+                <input type="button" value="SET START TIME" onclick="set_start_time()" />
+            </div>
+            <div>
+                <h2>Number of riders</h2>
+                <div>Enter the maximum rider number</div>
+                <input type="text" id="setup_num_riders" />
+                <input type="button" value="SET NUM RIDERS" onclick="set_num_riders()" />
             </div>
         </div>
         <div id="time_display">
