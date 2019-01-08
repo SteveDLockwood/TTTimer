@@ -40,8 +40,8 @@ div#setup {
     padding: 10px 0;
 }
 
-div#setup_close {
-    text-align: right;
+#setup_close {
+    float: right;
 }
 
 div#start_time_div {
@@ -67,8 +67,12 @@ div#time_display .time {
     text-align: center;
 }
 
+div#time_button {
+    padding: 10px;
+}
 div#time_button input {
     width: 100%;
+    padding: 10px 0;
 }
 
 div.button_click input {
