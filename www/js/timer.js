@@ -175,9 +175,10 @@ function html_button_click(eventid) {
     rid = bc.rider_id
     rt = rid !=null ? riders[rid].time_string : ''
     pt = rid != null ? riders[rid].penalty_string : ''
+    did = 0 + parseInt(eventid) + 1
     return `
 <div id="button_click_${eventid}" class="button_click assigned_${bc.rider_id ? 'yes' : 'no'} ignore_${bc.ignore ? 'yes' : 'no'}" onclick="time_event_click(${eventid})">
-    <span class="event_id">${eventid}</span>:
+    <span class="event_id">${did}</span>
     <span class="hms">${bc.hms}</span> - 
     Rider: <span class="rider_id">${rid}</span>
     Time: <span class="rider_time">${rt}</span>
@@ -201,11 +202,14 @@ function time_button_click(e) {
 
 // a time is clicked
 function time_event_click(eventid) {
-    // clear all actions
-    $(".actions").text("")
     // get the event details and the div which holds it
     bc = button_clicks[eventid]
     div = $(`div#button_click_${eventid}`)
+    text = $(div).find(".actions").text()
+    // clear all actions
+    $(".actions").text("")
+    // return if clicked when actions were displayed
+    if (text) {return}
     // set the actions
     html = ``
     if (bc.ignore) {
@@ -288,7 +292,7 @@ function setup() {
 
 // reset
 function reset() {
-    $("#reset_check").show()
+    $("#reset_check").toggle()
 }
 function reset2() {
     button_clicks = [] // button click events

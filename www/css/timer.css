@@ -1,15 +1,43 @@
+/* basic stuff and visibility */
 body {
     font-family: arial;
+    font-size: 125%;
+}
+div#setup,
+#reset_check,
+div#time_display .date,
+div.button_click .date {
+    display: none;
+}
+
+/* font sizes */
+#time_display {
+    font-size: 300%;
+}
+.milliseconds {
+    font-size: 75%;
+}
+input {
+    font-size: 200%;
+}
+.event_id {
+    font-size: 150%;
+}
+
+/* layout and style */
+
+h1 {
+    background-color: blue;
+    color: white;
+}
+h2 {
+    background-color: grey;
+    color: white;
 }
 
 div#setup {
-    display: none;
     background-color: #FFFF99;
     padding: 10px 0;
-}
-
-#reset_check {
-    display: none;
 }
 
 div#setup_close {
@@ -34,27 +62,15 @@ div#start_time {
 
 div#time_display {
 }
-div#time_display .date {
-    display: none;
-}
 div#time_display .time {
     display: block;
     text-align: center;
-}
-div#time_display .milliseconds {
-    font-size: 50%;
 }
 
 div#time_button input {
     width: 100%;
 }
 
-div.button_click .date {
-    display: none;
-}
-div.button_click .milliseconds {
-    font-size: 80%;
-}
 div.button_click input {
     margin: 3px;
 }
