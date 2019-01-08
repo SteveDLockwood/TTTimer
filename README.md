@@ -1,14 +1,4 @@
-# A Blank PhoneGap App
+# A Simple Timing App for Cycling Time Trials
 
 ## Usage
-
-### PhoneGap CLI
-
-    $ phonegap create my-app --template blank
-
-### Desktop
-
-In your browser, open the file:
-
-    /www/index.html
-
+For usage, see the wiki
